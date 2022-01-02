@@ -1,20 +1,24 @@
 import styled from "styled-components"
+import { Routes, Route, Link } from "react-router-dom"
 
 function Footer({}) {
     return (
         <Navbar>
-            <a href="/src/index.html">
+            <Link to="/">
                 <img src="/src/images/home.svg" width="34px" />
-            </a>
-            <a href="/src/bookmarks.html">
+            </Link>
+
+            <Link to="/favourites">
                 <img src="/src/images/mark.svg" width="34px" />
-            </a>
-            <a href="/src/create.html">
+            </Link>
+
+            <Link to="/AddQuestions">
                 <img src="/src/images/note.svg" width="34px" />
-            </a>
-            <a href="/src/profile.html">
+            </Link>
+
+            <Link to="/profile">
                 <img src="/src/images/profile.svg" width="34px" />
-            </a>
+            </Link>
         </Navbar>
     )
 }

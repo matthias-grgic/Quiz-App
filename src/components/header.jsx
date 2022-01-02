@@ -3,7 +3,7 @@ import styled from "styled-components"
 function Header({}) {
     return (
         <HeaderBar>
-            <h3>QUIZ APP</h3>
+            <h2>QUIZ APP</h2>
         </HeaderBar>
     )
 }

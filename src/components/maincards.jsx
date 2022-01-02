@@ -1,35 +1,17 @@
-import { useEffect, useState } from "react"
 import styled from "styled-components"
 
-function MainApp({}) {
-    const [cards, setCards] = useState([])
-    useEffect(() => {
-        fetch("https://opentdb.com/api.php?amount=10&category=9&difficulty=medium&type=multiple")
-            .then((response) => response.json())
-            .then((loadedQuestions) => {
-                loadedQuestions.results.map((loadedQuestions, index) => {
-                    const formatQuestions = {
-                        id: index + 1,
-                        question: loadedQuestions.question,
-                        answer: loadedQuestions.correct_answer,
-                        incorrect_answers: loadedQuestions.incorrect_answers,
-                    }
-                    setCards(formatQuestions)
-                })
-            })
-    }, [])
+function MainApp({ cardsMainApp }) {
+    const MainCard = cardsMainApp.map((cardsMainApp, index) => (
+        <MainQuestionCard key={index}>
+            <h4>{cardsMainApp.question}</h4>
+            <MainAnswerOne right>{cardsMainApp.answer}</MainAnswerOne>
+            <MainAnswerTwo>{cardsMainApp.incorrect_answers.slice(0, 1)}</MainAnswerTwo>
+            <MainAnswerThree>{cardsMainApp.incorrect_answers.slice(1, 2)}</MainAnswerThree>
+            <MainAnswerFour>{cardsMainApp.incorrect_answers.slice(2, 3)}</MainAnswerFour>
+        </MainQuestionCard>
+    ))
 
-    return (
-        <MainCards>
-            <MainQuestionCard>
-                <h4>{cards.question}</h4>
-                <MainAnswerOne>{cards.answer}</MainAnswerOne>
-                <MainAnswerTwo>{cards.incorrect_answers}</MainAnswerTwo>
-                <MainAnswerThree>{cards.incorrect_answers}</MainAnswerThree>
-                <MainAnswerFour>{cards.incorrect_answers}</MainAnswerFour>
-            </MainQuestionCard>
-        </MainCards>
-    )
+    return <MainCards>{MainCard}</MainCards>
 }
 
 export default MainApp
@@ -54,7 +36,7 @@ const MainQuestionCard = styled.div`
     background: linear-gradient(180deg, rgba(2, 0, 36, 0.4009978991596639) 0%, rgba(185, 131, 255, 1) 0%, rgba(148, 179, 253, 1) 44%, rgba(148, 218, 255, 1) 76%, rgba(153, 254, 255, 0.8211659663865546) 100%);
 `
 
-const MainAnswer = styled.div`
+const MainAnswer = styled.button`
     display: flex;
     justify-content: center;
     align-items: center;
@@ -63,8 +45,21 @@ const MainAnswer = styled.div`
     gap: 5px;
     column-gap: 12px;
     border-radius: 10px;
+    border-style: none;
     background-color: white;
     background: linear-gradient(180deg, rgba(2, 0, 36, 0.4009978991596639) 0%, rgba(247, 243, 251, 1) 0%, rgba(255, 255, 255, 1) 100%);
+
+    &:hover {
+        box-shadow: 0 20px 20px -1px rgba(104, 75, 75, 0.1);
+        background-color: rgba(170, 165, 165, 0.9);
+        border: 1px solid rgba(170, 165, 165, 0.9);
+        font-weight: 500;
+    }
+
+    &:active,
+    &:focus {
+        background: ${(props) => (props.right ? "rgba(130, 241, 107, 0.9)" : "rgba(230, 89, 89, 0.9)")};
+    }
 `
 
 const MainAnswerOne = styled(MainAnswer)``
